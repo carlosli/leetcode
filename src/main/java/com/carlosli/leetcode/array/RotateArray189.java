@@ -6,6 +6,10 @@ import java.util.Arrays;
  * Created by yulongli on 2016/10/27.
  */
 public class RotateArray189 {
+
+    /*
+    会进行k次置换
+     */
     public static void rotate(int[] nums, int k) {
         int temp = 0;
         while (k-- > 0) {
@@ -17,32 +21,37 @@ public class RotateArray189 {
         }
     }
 
+    /*
+    直接计算出新的位置，然后放到一个新的数组中的对应位置
+     */
     public static void rotate2(int[] nums, int k) {
         int[] newNums = new int[nums.length];
         for (int i = 0; i < nums.length; i++) {
-            newNums[(i+k)%nums.length] = nums[i];
+            // 移动k步后，除以原来的长度，取模，得出新的位置
+            newNums[(i + k) % nums.length] = nums[i];
         }
 
-        //转存一下
+        // 从新数组中转存回来
         for (int i = 0; i < nums.length; i++) {
             nums[i] = newNums[i];
         }
     }
 
     /**
-     *
-     * 当nums的长度 n%k=0 !???????  n、k 有公因数  ？？？？(9,6)时，逐一替换后，
-     * 会回到原始位置(停止条件为start=current,见下代码)，但是并不是所有位置的都替换了,
-     * 一共需要替换最小公因数轮？？
-     *
+     * 当nums的长度 n%k=0，  n、k 有公因数，当挪动会分成公因数组，如 (1)23(4)56(7)89
+     * 按照下面的方法进行替换，会回到原始位置(停止条件为start=current,见下代码)，故并不是所有位置的都替换了,
+     * 一共需要替换k次？？
+     * <p>
      * 如
      * 123456 k=3,一圈过后  (4)23(1)56   所以需要经过三轮替换，才能完全换完
+     * <p>
+     * 在替换过程中，进行计数，达到总数后即可
      *
      * @param nums
      * @param k
      */
     public static void rotate3(int[] nums, int k) {
-        k = k % nums.length;
+        k = k % nums.length; // 避免挪动位置太多（已经大于了原数组的长度），直接计算出挪动后的新位置
         int count = 0;
         for (int start = 0; count < nums.length; start++) {
             int current = start;
@@ -55,32 +64,27 @@ public class RotateArray189 {
                 current = next;
                 count++;
             } while (start != current);
-            System.out.println("@");
         }
     }
 
-
     /*
-    * 根据热心网友waruzhi的留言，这道题其实还有种类似翻转字符的方法，
+    * 三步翻转法
     * 思路是先把前n-k个数字翻转一下，再把后k个数字翻转一下，最后再把整个数组翻转一下：
-
-1 2 3 4 5 6 7
-4 3 2 1 5 6 7
-4 3 2 1 7 6 5
-5 6 7 1 2 3 4
-    *
-    * */
+    * 例如：1234567  k=3
+            1 2 3 4  5 6 7
+            4 3 2 1  5 6 7
+            4 3 2 1  7 6 5
+            5 6 7 1  2 3 4
+    */
     public static void rotate4(int[] nums, int k) {
-//        if (nums.length || (k %= nums.length)) == 0) return;
-//        int n = nums.length;
-//        reverse(nums.begin(), nums.begin() + n - k);
-//        reverse(nums.begin() + n - k, nums.end());
-//        reverse(nums.begin(), nums.end());
+        if (nums.length == 0 || (k % nums.length) == 0) return;
+        int n = nums.length;
+        reverse(nums, 0, n - k - 1);
+        reverse(nums, n - k, nums.length - 1);
+        reverse(nums, 0, nums.length - 1);
     }
 
-
-
-    public static void reverse(int[] nums, int start, int end) {
+    private static void reverse(int[] nums, int start, int end) {
         while (start < end) {
             int temp = nums[start];
             nums[start] = nums[end];
@@ -91,9 +95,12 @@ public class RotateArray189 {
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 2, 3, 4, 5, 6,7,8,9,10};
-        rotate3(nums, 8);
+        int[] nums = new int[]{1, 2, 3, 4};
+//        int[] nums = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//        rotate(nums, 3);
+//        rotate2(nums, 3);
+//        rotate3(nums, 2);
+        rotate4(nums, 3);
         System.out.println(Arrays.toString(nums));
-        System.out.println("fdsfd");
     }
 }
