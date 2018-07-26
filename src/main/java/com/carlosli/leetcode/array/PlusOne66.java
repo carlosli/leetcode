@@ -47,9 +47,30 @@ public class PlusOne66 {
         return newNumber;
     }
 
+    public int[] plusOne3(int[] digits) {
+        int n = digits.length;
+        for (int i = n - 1; i >= 0; i--) {
+            if (digits[i] == 9) {
+                digits[i] = 0;
+                if (i == 0) {
+                    int[] newNumber = new int[n + 1];
+                    newNumber[0] = 1;
+                    return newNumber;
+                }
+            } else {
+                digits[i]++;
+                return digits;
+            }
+
+        }
+        return digits;
+    }
+
     public static void main(String[] args) {
         PlusOne66 plusOne66 = new PlusOne66();
         System.out.println(Arrays.toString(plusOne66.plusOne(new int[]{9, 9, 9})));
         System.out.println(Arrays.toString(plusOne66.plusOne2(new int[]{9, 9, 9})));
+        System.out.println(Arrays.toString(plusOne66.plusOne3(new int[]{9, 9, 9})));
+        System.out.println(Arrays.toString(plusOne66.plusOne3(new int[]{9, 9, 1})));
     }
 }
