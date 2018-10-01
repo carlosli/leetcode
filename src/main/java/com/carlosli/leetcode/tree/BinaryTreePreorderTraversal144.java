@@ -21,9 +21,19 @@ public class BinaryTreePreorderTraversal144 {
 
         List<Integer> integers2 = binaryTreePreorderTraversal144.preorderTraversal1(treeNode);
         System.out.println(Arrays.toString(integers2.toArray()));
+        System.out.println("\n----------------");
+
+        List<Integer> integers3 = binaryTreePreorderTraversal144.preorderTraversal2(treeNode);
+        System.out.println(Arrays.toString(integers3.toArray()));
 
     }
 
+    /**
+     * 循环
+     * 用栈模拟了递归
+     * @param root
+     * @return
+     */
     public List<Integer> preorderTraversal(TreeNode root) {
         Stack<TreeNode> stack = new Stack<TreeNode>();
         List<Integer> preorder = new ArrayList<Integer>();
@@ -48,6 +58,11 @@ public class BinaryTreePreorderTraversal144 {
         return preorder;
     }
 
+    /**
+     * 递归
+     * @param root
+     * @return
+     */
     public List<Integer> preorderTraversal1(TreeNode root) {
         List<Integer> preorder = new ArrayList<Integer>();
 
@@ -67,5 +82,20 @@ public class BinaryTreePreorderTraversal144 {
             recursion(node.right, preorder);
         }
 
+    }
+
+    /**
+     * 分治法的思想，每次将左子树或者右子树的内容加入就好
+     * @param root
+     * @return
+     */
+    public List<Integer> preorderTraversal2(TreeNode root) {
+        ArrayList<Integer> arrayList = new ArrayList<>();
+
+        arrayList.add(root.val);
+        if (root.left!=null) arrayList.addAll(preorderTraversal2(root.left));
+        if (root.right!=null) arrayList.addAll(preorderTraversal2(root.right));
+
+        return arrayList;
     }
 }
