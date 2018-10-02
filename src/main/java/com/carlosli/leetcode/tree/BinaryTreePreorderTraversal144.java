@@ -10,7 +10,7 @@ import java.util.Stack;
 public class BinaryTreePreorderTraversal144 {
     public static void main(String[] args) {
 
-        TreeNode treeNode = TreeNode.makeATree();
+        TreeNode treeNode = TreeNode.makeABalanceTree();
 
         BinaryTreePreorderTraversal144 binaryTreePreorderTraversal144 = new BinaryTreePreorderTraversal144();
 
