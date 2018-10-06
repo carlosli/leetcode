@@ -39,6 +39,7 @@ public class ReverseLinkedList206 {
                 innerThird.next = innerSecond;
                 innerSecond.next = innerFour;
                 innerHead = innerHead.next;
+                ListNode.printList(innerHead);
             }
         }
         return gummy.next;
@@ -71,16 +72,10 @@ public class ReverseLinkedList206 {
     }
 
     public static void main(String[] args) {
-        ListNode node1 = new ListNode(1);
-        ListNode node2 = new ListNode(2);
-        ListNode node3 = new ListNode(3);
-        ListNode node4 = new ListNode(4);
-        ListNode node5 = new ListNode(5);
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = null;
-        ListNode.printList(reverseList3(node1));
+        ListNode.printList(reverseList(ListNode.makeANormalList()));
+        System.out.println("\n----------------");
+        ListNode.printList(reverseList2(ListNode.makeANormalList()));
+        System.out.println("\n----------------");
+        ListNode.printList(reverseList3(ListNode.makeANormalList()));
     }
 }

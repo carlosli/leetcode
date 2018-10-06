@@ -9,7 +9,7 @@ public class RemoveDuplicatesFromSortedListII82 {
         // 当前后面没有 或者 只有一个点，就不用再看了
         // 这里head其实充当重复的前一个点的角色
         while (head.next != null && head.next.next != null) {
-            // 当后面有相同的时候进行判断1-1-2; 这种就不需要判断了1-2-3;
+            // 当后面有相同的时候，则进行删除；一直删除到不同为止；
             if (head.next.val == head.next.next.val) {
                 // 把相同的全部删除
                 int temp = head.next.val;
@@ -24,19 +24,7 @@ public class RemoveDuplicatesFromSortedListII82 {
     }
 
     public static void main(String[] args) {
-        ListNode node1 = new ListNode(1);
-        ListNode node2 = new ListNode(1);
-        ListNode node3 = new ListNode(2);
-        ListNode node4 = new ListNode(3);
-        ListNode node5 = new ListNode(4);
-        ListNode node6 = new ListNode(4);
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = node6;
-
-        ListNode listNode = deleteDuplicates(node1);
+        ListNode listNode = deleteDuplicates(ListNode.makeADuplicatesList());
         ListNode.printList(listNode);
 
     }
