@@ -8,11 +8,17 @@ public class Subsets78 {
 
     public static void main(String[] args) {
         Subsets78 subsets78 = new Subsets78();
-        subsets78.subsets(new int[]{1,2,3});
+        subsets78.subsets(new int[]{1, 2, 3});
     }
 
     /**
      * 回溯
+     * 相当于构建了一个树
+     * --------{}
+     * ----1    2   3
+     * --12 13  23
+     * 123
+     *
      * @param nums
      */
     public void subsets(int[] nums) {
